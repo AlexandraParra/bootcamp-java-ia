@@ -16,9 +16,13 @@ public class TimeSlot {
 
     private LocalTime startTime;
 
+    private LocalTime endTime;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "doctor_id")
     private Doctor doctor;
+
+    private boolean status;
 
     public Long getId() {
         return id;
@@ -50,5 +54,21 @@ public class TimeSlot {
 
     public void setDoctor(Doctor doctor) {
         this.doctor = doctor;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
+    public LocalTime getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(LocalTime endTime) {
+        this.endTime = endTime;
     }
 }

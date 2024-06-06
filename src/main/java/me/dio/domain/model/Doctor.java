@@ -31,7 +31,7 @@ public class Doctor {
     private List<Specialty> specialtyList;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "doctor")
-    private List<TimeSlot> avalableSlotsList;
+    private List<TimeSlot> availableSlotsList;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "doctor")
     private List<Appointment> bookedAppointmentList;
@@ -60,12 +60,12 @@ public class Doctor {
         this.specialtyList = specialtyList;
     }
 
-    public List<TimeSlot> getAvalableSlotsList() {
-        return avalableSlotsList;
+    public List<TimeSlot> getAvailableSlotsList() {
+        return availableSlotsList;
     }
 
-    public void setAvalableSlotsList(List<TimeSlot> avalableSlotsList) {
-        this.avalableSlotsList = avalableSlotsList;
+    public void setAvailableSlotsList(List<TimeSlot> availableSlotsList) {
+        this.availableSlotsList = availableSlotsList;
     }
 
     public List<Appointment> getBookedAppointmentList() {
