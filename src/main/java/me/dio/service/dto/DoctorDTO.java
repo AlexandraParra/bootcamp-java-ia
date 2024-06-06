@@ -1,48 +1,20 @@
-package me.dio.domain.model;
+package me.dio.service.dto;
 
-import jakarta.persistence.*;
+import me.dio.domain.model.Appointment;
+import me.dio.domain.model.Specialty;
+import me.dio.domain.model.TimeSlot;
 
 import java.util.List;
 
-@Entity(name = "tb_doctor")
-public class Doctor {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class DoctorDTO {
 
     private String name;
 
-    @ManyToMany(
-            cascade = CascadeType.ALL,
-            fetch = FetchType.EAGER
-    )
-    @JoinTable(
-            name = "tb_relation_doctor_specialty",
-            joinColumns = @JoinColumn(
-                    name = "doctor_id",
-                    referencedColumnName = "id"
-            ),
-            inverseJoinColumns = @JoinColumn(
-                    name = "specialty_id",
-                    referencedColumnName = "id"
-            )
-    )
     private List<Specialty> specialtyList;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "doctor")
     private List<TimeSlot> availableSlotsList;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "doctor")
     private List<Appointment> bookedAppointmentList;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
