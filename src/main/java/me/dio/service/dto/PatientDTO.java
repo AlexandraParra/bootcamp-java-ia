@@ -1,16 +1,24 @@
 package me.dio.service.dto;
 
-import me.dio.domain.model.Appointment;
-
 import java.util.List;
 
 public class PatientDTO {
+
+    private Long id;
 
     private String name;
 
     private String cpf;
 
-    private List<Appointment> appointmentList;
+    private List<AppointmentDTO> appointmentList;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -28,11 +36,11 @@ public class PatientDTO {
         this.cpf = cpf;
     }
 
-    public List<Appointment> getAppointmentList() {
+    public List<AppointmentDTO> getAppointmentList() {
         return appointmentList;
     }
 
-    public void setAppointmentList(List<Appointment> appointmentList) {
+    public void setAppointmentList(List<AppointmentDTO> appointmentList) {
         this.appointmentList = appointmentList;
     }
 }

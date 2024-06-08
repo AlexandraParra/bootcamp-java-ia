@@ -1,20 +1,26 @@
 package me.dio.service.dto;
 
-import me.dio.domain.model.Appointment;
-import me.dio.domain.model.Specialty;
-import me.dio.domain.model.TimeSlot;
-
 import java.util.List;
 
 public class DoctorDTO {
 
+    private Long id;
+
     private String name;
 
-    private List<Specialty> specialtyList;
+    private List<SpecialtyDTO> specialtyList;
 
-    private List<TimeSlot> availableSlotsList;
+    private List<TimeSlotDTO> availableSlotsList;
 
-    private List<Appointment> bookedAppointmentList;
+    private List<AppointmentDTO> bookedAppointmentList;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -24,27 +30,27 @@ public class DoctorDTO {
         this.name = name;
     }
 
-    public List<Specialty> getSpecialtyList() {
+    public List<SpecialtyDTO> getSpecialtyList() {
         return specialtyList;
     }
 
-    public void setSpecialtyList(List<Specialty> specialtyList) {
+    public void setSpecialtyList(List<SpecialtyDTO> specialtyList) {
         this.specialtyList = specialtyList;
     }
 
-    public List<TimeSlot> getAvailableSlotsList() {
+    public List<TimeSlotDTO> getAvailableSlotsList() {
         return availableSlotsList;
     }
 
-    public void setAvailableSlotsList(List<TimeSlot> availableSlotsList) {
+    public void setAvailableSlotsList(List<TimeSlotDTO> availableSlotsList) {
         this.availableSlotsList = availableSlotsList;
     }
 
-    public List<Appointment> getBookedAppointmentList() {
+    public List<AppointmentDTO> getBookedAppointmentList() {
         return bookedAppointmentList;
     }
 
-    public void setBookedAppointmentList(List<Appointment> bookedAppointmentList) {
+    public void setBookedAppointmentList(List<AppointmentDTO> bookedAppointmentList) {
         this.bookedAppointmentList = bookedAppointmentList;
     }
 }

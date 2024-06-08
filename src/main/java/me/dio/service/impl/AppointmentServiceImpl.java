@@ -5,6 +5,8 @@ import me.dio.domain.model.Doctor;
 import me.dio.domain.model.TimeSlot;
 import me.dio.domain.repository.AppointmentRepository;
 import me.dio.service.AppointmentService;
+import me.dio.service.dto.AppointmentDTO;
+import me.dio.service.mapper.AppointmentMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,6 +39,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 
         dbAppointment.setDate(appointmentToUpdate.getDate());
         dbAppointment.setTime(appointmentToUpdate.getTime());
+        dbAppointment.setPatient(appointmentToUpdate.getPatient());
         dbAppointment.setDoctor(appointmentToUpdate.getDoctor());
 
         return this.appointmentRepository.save(dbAppointment);

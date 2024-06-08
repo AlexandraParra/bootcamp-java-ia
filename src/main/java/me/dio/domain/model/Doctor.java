@@ -14,7 +14,7 @@ public class Doctor {
     private String name;
 
     @ManyToMany(
-            cascade = CascadeType.ALL,
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE},
             fetch = FetchType.EAGER
     )
     @JoinTable(
@@ -30,10 +30,10 @@ public class Doctor {
     )
     private List<Specialty> specialtyList;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "doctor")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "doctor")
     private List<TimeSlot> availableSlotsList;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "doctor")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "doctor")
     private List<Appointment> bookedAppointmentList;
 
     public Long getId() {

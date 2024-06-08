@@ -72,7 +72,9 @@ public class PatientServiceImpl implements PatientService {
     }
 
     public Appointment scheduleAppointment(Appointment appointmentToCreate){
-        if(this.doctorService.checkAvailability(appointmentToCreate)){
+        var available = this.doctorService.checkAvailability(appointmentToCreate);
+
+        if(available){
             return this.appointmentService.confirm(appointmentToCreate);
         }
         else{

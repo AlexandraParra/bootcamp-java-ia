@@ -1,11 +1,11 @@
 package me.dio.service.dto;
 
-import me.dio.domain.model.Doctor;
-
 import java.time.DayOfWeek;
 import java.time.LocalTime;
 
 public class TimeSlotDTO {
+
+    private Long id;
 
     private DayOfWeek dayOfWeek;
 
@@ -13,9 +13,15 @@ public class TimeSlotDTO {
 
     private LocalTime endTime;
 
-    private Doctor doctor;
-
     private boolean status;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public DayOfWeek getDayOfWeek() {
         return dayOfWeek;
@@ -39,14 +45,6 @@ public class TimeSlotDTO {
 
     public void setEndTime(LocalTime endTime) {
         this.endTime = endTime;
-    }
-
-    public Doctor getDoctor() {
-        return doctor;
-    }
-
-    public void setDoctor(Doctor doctor) {
-        this.doctor = doctor;
     }
 
     public boolean isStatus() {

@@ -1,20 +1,29 @@
 package me.dio.service.dto;
 
-import me.dio.domain.model.Doctor;
-import me.dio.domain.model.Patient;
-
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class AppointmentDTO {
 
+    private Long id;
+
     private LocalDate date;
 
     private LocalTime time;
 
-    private Patient patient;
+    private PatientDTO patient;
 
-    private Doctor doctor;
+    private Long doctorId;
+
+    private DoctorDTO doctor;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public LocalDate getDate() {
         return date;
@@ -32,19 +41,27 @@ public class AppointmentDTO {
         this.time = time;
     }
 
-    public Patient getPatient() {
+    public PatientDTO getPatient() {
         return patient;
     }
 
-    public void setPatient(Patient patient) {
+    public void setPatient(PatientDTO patient) {
         this.patient = patient;
     }
 
-    public Doctor getDoctor() {
+    public Long getDoctorId() {
+        return doctorId;
+    }
+
+    public void setDoctorId(Long doctorId) {
+        this.doctorId = doctorId;
+    }
+
+    public DoctorDTO getDoctor() {
         return doctor;
     }
 
-    public void setDoctor(Doctor doctor) {
+    public void setDoctor(DoctorDTO doctor) {
         this.doctor = doctor;
     }
 }

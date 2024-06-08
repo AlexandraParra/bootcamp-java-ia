@@ -2,12 +2,15 @@ package me.dio.service.impl;
 
 import me.dio.domain.model.Appointment;
 import me.dio.domain.model.Doctor;
+import me.dio.domain.model.Specialty;
 import me.dio.domain.model.TimeSlot;
 import me.dio.domain.repository.DoctorRepository;
 import me.dio.service.DoctorService;
+import me.dio.service.SpecialtyService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -16,12 +19,26 @@ public class DoctorServiceImpl implements DoctorService {
 
     private final DoctorRepository doctorRepository;
 
-    public DoctorServiceImpl(DoctorRepository doctorRepository){
+    private final SpecialtyService specialtyService;
+
+    public DoctorServiceImpl(DoctorRepository doctorRepository, SpecialtyService specialtyService){
         this.doctorRepository = doctorRepository;
+        this.specialtyService = specialtyService;
     }
 
     @Transactional
     public Doctor create(Doctor doctorToCreate){
+
+        for(TimeSlot timeSlot : doctorToCreate.getAvailableSlotsList()){
+            timeSlot.setDoctor(doctorToCreate);
+        }
+
+        List<Specialty> specialtyList = doctorToCreate.getSpecialtyList()
+                .stream()
+                .map(specialty -> this.specialtyService.findById(specialty.getId()))
+                .toList();
+        doctorToCreate.setSpecialtyList(specialtyList);
+
         return this.doctorRepository.save(doctorToCreate);
     }
 
@@ -34,7 +51,14 @@ public class DoctorServiceImpl implements DoctorService {
 
         dbDoctor.setName(doctorToUpdate.getName());
         dbDoctor.setSpecialtyList(doctorToUpdate.getSpecialtyList());
-        dbDoctor.setAvailableSlotsList(doctorToUpdate.getAvailableSlotsList());
+
+        List<TimeSlot> timeSlotList = new ArrayList<>();
+        for(TimeSlot timeSlot : doctorToUpdate.getAvailableSlotsList()){
+            timeSlot.setDoctor(dbDoctor);
+            timeSlotList.add(timeSlot);
+        }
+        dbDoctor.setAvailableSlotsList(timeSlotList);
+        dbDoctor.setBookedAppointmentList(doctorToUpdate.getBookedAppointmentList());
 
         return this.doctorRepository.save(dbDoctor);
     }
@@ -57,14 +81,15 @@ public class DoctorServiceImpl implements DoctorService {
 
     public boolean checkAvailability(Appointment appointment) throws IllegalArgumentException {
         Doctor dbDoctor = this.findById(appointment.getDoctor().getId());
+        var available = false;
         for (TimeSlot timeSlot : dbDoctor.getAvailableSlotsList()){
-            if(appointment.getDate().getDayOfWeek().equals(timeSlot.getDayOfWeek())
-                && appointment.getTime().getHour() >= timeSlot.getStartTime().getHour()
-                    && appointment.getTime().getHour() < timeSlot.getEndTime().getHour()
-                && !timeSlot.isStatus()
-                && appointment.getDoctor().equals(dbDoctor)
-            ) return true;
+            available = appointment.getDoctor().getId().equals(dbDoctor.getId())
+                    && !timeSlot.isStatus()
+                    && appointment.getDate().getDayOfWeek().equals(timeSlot.getDayOfWeek())
+                    && appointment.getTime().getHour() >= timeSlot.getStartTime().getHour()
+                    && appointment.getTime().getHour() < timeSlot.getEndTime().getHour();;
         }
-        throw new IllegalArgumentException("Schedule not available");
+        if(!available)throw new IllegalArgumentException("Schedule not available");
+        return available;
     }
 }
