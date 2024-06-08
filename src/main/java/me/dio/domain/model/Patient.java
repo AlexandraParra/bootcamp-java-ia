@@ -16,7 +16,7 @@ public class Patient {
     @Column(length = 11)
     private String cpf;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "patient")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "patient")
     private List<Appointment> appointmentList;
 
     public Long getId() {
