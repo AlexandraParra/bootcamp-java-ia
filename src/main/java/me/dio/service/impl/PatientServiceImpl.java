@@ -27,6 +27,9 @@ public class PatientServiceImpl implements PatientService {
 
     @Transactional
     public Patient create(Patient patientToCreate){
+        for(Appointment appointment : patientToCreate.getAppointmentList()){
+            appointment.setPatient(patientToCreate);
+        }
         List<Appointment> appointmentList = patientToCreate.getAppointmentList()
                 .stream()
                 .map(this::scheduleAppointment)

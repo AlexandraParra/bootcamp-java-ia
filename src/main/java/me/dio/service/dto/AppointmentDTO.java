@@ -11,8 +11,6 @@ public class AppointmentDTO {
 
     private LocalTime time;
 
-    private PatientDTO patient;
-
     private Long doctorId;
 
     private DoctorDTO doctor;
@@ -39,14 +37,6 @@ public class AppointmentDTO {
 
     public void setTime(LocalTime time) {
         this.time = time;
-    }
-
-    public PatientDTO getPatient() {
-        return patient;
-    }
-
-    public void setPatient(PatientDTO patient) {
-        this.patient = patient;
     }
 
     public Long getDoctorId() {
