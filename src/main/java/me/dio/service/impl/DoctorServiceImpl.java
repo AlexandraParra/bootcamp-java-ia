@@ -87,9 +87,9 @@ public class DoctorServiceImpl implements DoctorService {
                     && !timeSlot.isStatus()
                     && appointment.getDate().getDayOfWeek().equals(timeSlot.getDayOfWeek())
                     && appointment.getTime().getHour() >= timeSlot.getStartTime().getHour()
-                    && appointment.getTime().getHour() < timeSlot.getEndTime().getHour();;
+                    && appointment.getTime().getHour() < timeSlot.getEndTime().getHour();
+            if(!available)throw new IllegalArgumentException("Schedule not available");
         }
-        if(!available)throw new IllegalArgumentException("Schedule not available");
         return available;
     }
 }
